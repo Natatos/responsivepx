@@ -62,8 +62,9 @@
 <body> 
   <form> 
     <input placeholder=http:// value=http:// id=url name=url autocomplete autofocus spellcheck=false autocapitalize=off autocorrect=off>
-    <input type=submit value=Open> 
+    <input type=submit value=Open>
     <input type=checkbox id=scrollbars checked>
+    
     Width: <input id="width" type="range" max="3000" min="10" value="640" />
       <!--<option>10</option>
       <option>340</option>
@@ -75,9 +76,8 @@
       <option>1920</option>
       <option>2048</option>
       <option>3000</option>-->
-    
-    <!-- <input type=range id=width step=1 min=10 max=3000 value=640> -->
     <input size=4 type=number min=10 step=1 class=width>
+    
     Height: <input id="height" type="range" max="3000" min="10" value="480" />
     <!--<select id=height step=1 type=range>
       <option>10</option>
@@ -91,9 +91,8 @@
       <option>2048</option>
       <option>3000</option>
       </select>-->
-      
-    <!-- <input type=range step=1 id='height' step=10 min=100 max=3000 value=640> -->
-    <input size=4 type=number min=10 step=1 class=height>
+   	<input size=4 type=number min=10 step=1 class=height>
+    
     <a title='Open a new email with the permalink to this breakpoint' href='mailto:?subject=responsivepx.com' id=share>Share</a>
     
   </form> 
@@ -183,20 +182,6 @@ $('#share').click(function () {
   this.href = 'mailto:?body=' + encodeURIComponent(copy);
 });
 
-$('#scrollbars').click(function () {
-  useoffset = this.checked;
-  var w = $('iframe').width() - (useoffset ? offset : 0),
-      h = $('iframe').height() - (useoffset ? offset : 0);
-  addhistory();
-  $('input[type=number], [type=range]').each(function () {
-    if (this.id == 'width' || this.className == 'width') {
-      this.value = w;
-    } else {
-      this.value = h;
-    }
-  });
-});
-
 $('input[type=number]').bind('input', function (e, nohistory) {
   $('#' + this.className).val(this.value);
   size($w.val(), $h.val(), nohistory);
@@ -215,38 +200,6 @@ $range.bind('change', function (e, nohistory) {
   $(this).focus();
 });
 
-if (window.top !== window.self) window.top.location.replace(window.self.location.href);
-
-if (history.pushState) {
-  window.onpopstate = function () {
-    // read the location and reload
-    var settings = location.hash.substr(1).split('&');
-    
-    if (settings.length == 2) {
-      useoffset = true;
-      $('#scrollbars').attr('checked', 'checked');
-    } else if (location.hash) {
-      useoffset = false;
-      $('#scrollbars').removeAttr('checked');
-    }
-    
-    if (settings[0].indexOf('x') !== -1) { // if it actually has some value
-      var wh = settings[0].split('x');
-      $w.val(wh[0]);
-      $h.val(wh[1]);
-    }
-    
-    $('input.width').val($w.val());
-    $('input.height').val($h.val());
-    var newurl = decodeURIComponent(location.search.substr(1));
-    if (newurl !== url) {
-      $url.val(newurl);
-      $form.trigger('submit', [ true ]); // tell the form not to add to the history
-    } else {
-      $range.trigger('change', [ true ]);
-    }
-  };
-}
 
 </script> 
 </body> 
