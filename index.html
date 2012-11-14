@@ -64,8 +64,7 @@
     Height: <input id="height" type="range" max="3000" min="10" value="480" />
    	<input size=4 type=number min=10 step=1 class=height>
    	
-   	<!--
-   		Predefined
+   	<!--Predefined breaks
    	<select id=height step=1 type=range>
    	  <option>10</option>
    	  <option>340</option>
@@ -77,13 +76,14 @@
    	  <option>1920</option>
    	  <option>2048</option>
    	  <option>3000</option>
-   	  </select>-->
+   	</select>-->
    	        
   </form> 
 
+
 <script>
 // workout what the dimensions of a scrollbar is for the particular browser. 
-// It's usually 15px, but who seriously trusts browsers nowadays?!
+// It's usually 15px, but who sersiously trusts browsers nowadays?!
 function calcScrollbarWidth() {
   var el = $('<div style="overflow: scroll;">').appendTo('body')[0];
   var offset = el.offsetHeight;
@@ -109,13 +109,13 @@ function addhistory() {
 }
 
 function size(w, h, nohistory) {
-   ensure the values are numbers
+  // ensure the values are numbers
   w *= 1;
   h *= 1;
   
   if (!nohistory) addhistory();
    
-   adjust for whether we have the scrollbars visible
+  // adjust for whether we have the scrollbars visible
   $('iframe').width(w + (useoffset ? offset : 0)).height(h + (useoffset ? offset : 0));
 }
 
